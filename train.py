@@ -13,6 +13,23 @@ from utils import save_image_grid
 
 # Training the model
 def train_model():
+    """
+    Train model function.
+
+    Pseudocode:
+    // Step 1: Initialize loss functions, train and val dataset, network  
+
+    // Step 2: Loop through the dataset
+    for batch in input:
+        // Step 3: Compute model output
+        // Step 4: Compute loss between output and GT
+        // Step 5: Backprop and update weights
+
+    // Step 6: Run Steps 2-5 for validation dataset and log the loss
+    return model
+    """
+
+
     with open('config.json', 'r') as file:
         args = json.load(file)
 

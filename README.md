@@ -80,4 +80,4 @@ For the sobel filter, 3 convolutional layers seem to be optimal. Performance wit
 
 For blurring filter, again 3 convolutional layers lead to faster convergence but eventually, the one layer network reaches a slightly lower loss (both train and validation). 
 
-I also tested out a sobel filter that uses wrap boundaries to avoid getting artifacts at the boundaries of the image. The loss for the model with wrap boundaries is a little higher because the convolutional layers inherently use zero value paddings.
+I also tested out a sobel filter that uses wrap boundaries to avoid getting artifacts at the boundaries of the image. The loss for the model with wrap boundaries is a little higher because the convolutional layers inherently use zero value paddings. This one works well for any number of layers >= 4.

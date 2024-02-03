@@ -8,6 +8,12 @@ import scipy
 
 
 class CustomDataset(Dataset):
+    """
+    Custom dataset class.
+
+    Loads the COCO dataset and manually labels each sample with the filter's GT output.
+    """
+
     def __init__(self, transform=None, train=True, filter="sobel"):
         coco_root = '/data/sarthak/coco'
         self.filter = filter
@@ -36,6 +42,11 @@ class CustomDataset(Dataset):
 
 # Function to generate Sobel-filtered images
 def get_gt_values(image, filter):
+    """
+    Returns the output after applying the given filter to the image.
+    Used in both the dataset class and test file.
+    """
+
     if filter == 'sobel':
         filter_x = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
         filter_y = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]])

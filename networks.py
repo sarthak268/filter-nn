@@ -1,6 +1,11 @@
 import torch.nn as nn
 
 class SobelNet(nn.Module):
+    """"
+    Create the neural network for mimicking the output of the filter.
+    Obtains parameters like number layers from config file.
+    """
+
     def __init__(self, in_channel=1, num_layers=1):
         super(SobelNet, self).__init__()
         out_channels = 1

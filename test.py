@@ -13,7 +13,13 @@ with open('config.json', 'r') as file:
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-def load_and_run_model(image_name):
+def test_model(image_name):
+    """
+    Evaluates the train model on test images.
+
+    Saves the output from the model and the GT images in root dir.
+    """
+
     model = SobelNet(num_layers=args["num_layers"])
     model = model.to(device)
     weights_path = './saved_weights/model.pth'
@@ -49,5 +55,5 @@ def load_and_run_model(image_name):
 
 if (__name__ == '__main__'):
     image_name = "test_image.jpg"
-    result = load_and_run_model(image_name)
+    result = test_model(image_name)
     
