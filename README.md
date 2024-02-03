@@ -76,8 +76,20 @@ Here are some of the finding from the evaluation of the trained models.
 
 For the sobel filter, 3 convolutional layers seem to be optimal. Performance with 2 and 4 convolutional layers also saturate to a similar loss (both train and validation) but with 3 layers, the convergence is faster. Sobel filter does not work well with just one layer (loss converges to 0.3 which is significantly higher than that of >1 layers).
 
+<p align="center">
+  <img src="media/sobel/images_input.png" width="30%" alt="Input Images">
+  <img src="media/sobel/images_target.png" width="30%" alt="Target Images">
+  <img src="media/sobel/images_output.png" width="30%" alt="Output Images">
+</p>
+
 ![Blur](media/blur_layers.png)
 
 For blurring filter, again 3 convolutional layers lead to faster convergence but eventually, the one layer network reaches a slightly lower loss (both train and validation). 
 
-I also tested out a sobel filter that uses wrap boundaries to avoid getting artifacts at the boundaries of the image. The loss for the model with wrap boundaries is a little higher because the convolutional layers inherently use zero value paddings. This one works well for any number of layers >= 4.
+<p align="center">
+  <img src="media/sym_sobel/images_input.png" width="30%" alt="Input Images">
+  <img src="media/sym_sobel/images_target.png" width="30%" alt="Target Images">
+  <img src="media/sym_sobel/images_output.png" width="30%" alt="Output Images">
+</p>
+
+I also tested out a sobel filter that uses wrap boundaries to reduce artifacts at the boundaries of the image. The loss for the model with wrap boundaries is a little higher because the convolutional layers inherently use zero value paddings. This one works well for any number of layers >= 3.
