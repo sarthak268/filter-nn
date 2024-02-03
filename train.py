@@ -40,7 +40,8 @@ def train_model():
                                               batch_size=args["batchsize"], shuffle=True)
 
     exp_name = args["filter"]
-    wandb.init(project="poly", name=exp_name)
+    if args["wandb"] == "true":
+        wandb.init(project="poly", name=exp_name)
     
     directory_path = './saved_images/'
     if not os.path.exists(directory_path):
@@ -89,14 +90,16 @@ def train_model():
                 save_image_grid(targets, directory_path, 'targets_{}_{}'.format(epoch, i))
                 save_image_grid(outputs, directory_path, 'outputs_{}_{}'.format(epoch, i))
 
-                wandb.log({"Train Loss": loss.item()})
+                if args["wandb"] == "true":
+                    wandb.log({"Train Loss": loss.item()})
             
         print ('End of the Epoch ...')
         print ('Epoch: [{} / {}], Train Loss: {}'.format(
                 epoch, args["num_epochs"],  
                 total_loss / len(train_loader)
             ))
-        wandb.log({"Mean Train Loss": total_loss / len(train_loader)})
+        if args["wandb"] == "true":
+            wandb.log({"Mean Train Loss": total_loss / len(train_loader)})
         
         model.eval()
         for i, (inputs, targets) in enumerate(test_loader):
@@ -115,7 +118,8 @@ def train_model():
                 epoch, args["num_epochs"], 
                 total_test_loss / len(test_loader)
             ))
-        wandb.log({"Mean Val Loss": total_test_loss / len(test_loader)})
+        if args["wandb"] == "true":
+            wandb.log({"Mean Val Loss": total_test_loss / len(test_loader)})
         
         save_image_grid(inputs, directory_path, 'inputs_val_{}'.format(epoch))
         save_image_grid(targets, directory_path, 'targets_val_{}'.format(epoch))

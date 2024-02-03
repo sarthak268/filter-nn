@@ -6,6 +6,7 @@
     "batchsize": 64,
     "log_every": 100, 
     "cuda": 1,
-    "filter": "blur",
-    "num_layers": 1
+    "filter": "sym_sobel",
+    "num_layers": 3,
+    "wandb": "true"
 }

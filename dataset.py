@@ -4,6 +4,7 @@ from torch.utils.data import Dataset
 from torchvision import transforms
 from torchvision.datasets import CocoDetection
 import numpy as np
+import scipy
 
 
 class CustomDataset(Dataset):
@@ -53,6 +54,21 @@ def get_gt_values(image, filter):
         fil_magnitude = torch.sqrt(fil_out_x**2 + fil_out_y**2)
 
         return fil_magnitude.squeeze(0)
+    
+    elif filter == 'sym_sobel':
+        # Sobel filter without corner artifacts 
+        filter_x = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
+        filter_y = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]])
+
+        image = image.unsqueeze(0).unsqueeze(0)
+
+        fil_out_x = scipy.signal.convolve2d(image.squeeze().numpy(), filter_x, mode='same', boundary='wrap')
+        fil_out_y = scipy.signal.convolve2d(image.squeeze().numpy(), filter_y, mode='same', boundary='wrap')
+
+        fil_magnitude = np.sqrt(fil_out_x**2 + fil_out_y**2)
+        fil_magnitude = torch.from_numpy(fil_magnitude).float()
+
+        return fil_magnitude.unsqueeze(0)#.squeeze(0)
     
     elif filter == 'avg':
         # Averaging filter
