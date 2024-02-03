@@ -7,6 +7,6 @@
     "log_every": 100, 
     "cuda": 1,
     "filter": "sym_sobel",
-    "num_layers": 3,
+    "num_layers": 2,
     "wandb": "true"
 }

@@ -4,10 +4,36 @@ This repository contains the code for the implementation of a sobel filter using
 
 ## Index
 
-1. [Environment Setup](#setup)
-2. [Training](#training)
-3. [Testing](#testing)
-3. [Results](#results)
+1. [Understanding the Code](#understanding)
+2. [Environment Setup](#setup)
+3. [Training](#training)
+4. [Testing](#testing)
+5. [Results](#results)
+
+## Understanding the Code
+
+```python
+function train(input):
+    // Step 1: Initialize loss functions, train and val dataset, network  
+
+    // Step 2: Loop through the dataset
+    for batch in input:
+        // Step 3: Compute model output
+        // Step 4: Compute loss between output and GT
+        // Step 5: Backprop and update weights
+
+    // Step 6: Run Steps 2-5 for validation dataset and log the loss
+    return model
+```
+
+```python
+function generateData(input):
+    // Step 1: Load COCO dataset
+    // Step 2: Compute Sobel filter on each sample 
+    // Step 3: Wrap this dataset around a dataloader 
+
+    return dataloader
+```
 
 ## Environment Setup
 
