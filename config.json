@@ -1,0 +1,11 @@
+{
+    "lr": 1e-3,
+    "num_epochs": 10,
+    "img_size": 64,
+    "in_channel": 1,
+    "batchsize": 64,
+    "log_every": 100, 
+    "cuda": 1,
+    "filter": "blur",
+    "num_layers": 1
+}
