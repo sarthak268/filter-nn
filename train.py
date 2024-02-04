@@ -50,11 +50,13 @@ def train_model():
 
     train_dataset = CustomDataset(transform=transform, filter=args["filter"])
     train_loader = torch.utils.data.DataLoader(dataset=train_dataset, 
-                                               batch_size=args["batchsize"], shuffle=True)
+                                               batch_size=args["batchsize"], 
+                                               shuffle=True, num_workers=args['num_workers'])
 
     test_dataset = CustomDataset(transform=transform, train=False, filter=args["filter"])
     test_loader = torch.utils.data.DataLoader(dataset=test_dataset, 
-                                              batch_size=args["batchsize"], shuffle=True)
+                                              batch_size=args["batchsize"], 
+                                              shuffle=True, num_workers=args['num_workers'])
 
     exp_name = args["filter"]
     if args["wandb"] == "true":

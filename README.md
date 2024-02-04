@@ -59,7 +59,7 @@ To train our model, run the following command:
 CUDA_VISIBLE_DEVICES=ID python train.py
 ```
 
-You can choose to modify the hyperparameters for training in ```config.json```. Here, you can change various parameters like batch size, number of epochs, image size, learning rate, etc.
+You can choose to modify the hyperparameters for training in ```config.json```. Here, you can change various parameters like batch size, number of epochs, image size, learning rate, etc. The code can be run on GPU or CPU depending on your hardware so feel free to change that. 
 
 In the same file, you can modify the filter you would want to us (variable for that is called ```filter```). The possible values it can take are ```sobel```, ```sym_sobel```, ```avg```, ```blur```, and ```custom```.
 You can also add your own custom filter that you want the model to learn in the ```get_gt_values``` function in the ```dataset.py``` file.
@@ -80,7 +80,9 @@ Here are some of the finding from the evaluation of the trained models.
 ![Sobel](media/sobel_layers.png)
 
 For the sobel filter, 3 convolutional layers seem to be optimal. We also use ReLU activations between layers.
-Performance with 2 and 4 convolutional layers also saturate to a similar loss (both train and validation) but with 3 layers, the convergence is faster. Sobel filter does not work well with just one layer (loss converges to 0.3 which is significantly higher than that of >1 layers).
+Performance with 2 and 4 convolutional layers also saturate to a similar loss (both train and validation) but with 3 layers, the convergence is faster. Sobel filter does not work well with just one layer (loss converges to 0.3 which is significantly higher than that of >1 layers). 
+
+These are the images I got from the trained models. These are input images, target images after applying the filter and the output images from our model respectively.
 
 <p align="center">
   <img src="media/sobel/images_input.png" width="30%" alt="Input Images">
@@ -90,7 +92,8 @@ Performance with 2 and 4 convolutional layers also saturate to a similar loss (b
 
 ![Blur](media/blur_layers.png)
 
-For blurring filter, again 3 convolutional layers lead to faster convergence but eventually, the one layer network reaches a slightly lower loss (both train and validation). This is because effectively we are just applying one convolutional filter to the image which can be learnt by the neural network. A larger network optimizes faster due to its capacity to learn more complex behaviors and since there are multiple ways to represent a filter, it converges faster to a solution.
+For blurring filter, again 3 convolutional layers lead to faster convergence but eventually, the one layer network reaches a slightly lower loss (both train and validation). This is because effectively we are just applying one convolutional filter to the image which can be learnt by the neural network with one layer. This enables us to compute the filter output very efficiently since we are using a GPU for computations.
+A larger network optimizes faster due to its capacity to learn more complex behaviors and since there are multiple ways to represent a filter, it converges faster to a solution.
 
 <p align="center">
   <img src="media/sym_sobel/images_input.png" width="30%" alt="Input Images">
