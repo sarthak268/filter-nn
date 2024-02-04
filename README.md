@@ -77,12 +77,14 @@ CUDA_VISIBLE_DEVICES=ID python test.py
 
 Here are some of the finding from the evaluation of the trained models.
 
+#### Sobel filter
+
 ![Sobel](media/sobel_layers.png)
 
 For the sobel filter, 3 convolutional layers seem to be optimal. We also use ReLU activations between layers.
 Performance with 2 and 4 convolutional layers also saturate to a similar loss (both train and validation) but with 3 layers, the convergence is faster. Sobel filter does not work well with just one layer (loss converges to 0.3 which is significantly higher than that of >1 layers). 
 
-These are the images I got from the trained models. These are input images, target images after applying the filter and the output images from our model respectively.
+These are the images I got from the trained models. These are input images (left), target images after applying the sobel filter (middle), and the output images from our model (right), respectively.
 
 <p align="center">
   <img src="media/sobel/images_input.png" width="30%" alt="Input Images">
@@ -90,18 +92,32 @@ These are the images I got from the trained models. These are input images, targ
   <img src="media/sobel/images_output.png" width="30%" alt="Output Images">
 </p>
 
+#### Blur filter
+
 ![Blur](media/blur_layers.png)
 
 For blurring filter, again 3 convolutional layers lead to faster convergence but eventually, the one layer network reaches a slightly lower loss (both train and validation). This is because effectively we are just applying one convolutional filter to the image which can be learnt by the neural network with one layer. This enables us to compute the filter output very efficiently since we are using a GPU for computations.
 A larger network optimizes faster due to its capacity to learn more complex behaviors and since there are multiple ways to represent a filter, it converges faster to a solution.
+
+These are the images I got from the trained models. These are input images (left), target images after applying the blur filter (middle), and the output images from our model (right), respectively.
+
+<p align="center">
+  <img src="media/blur/images_input.png" width="30%" alt="Input Images">
+  <img src="media/blur/images_target.png" width="30%" alt="Target Images">
+  <img src="media/blur/images_output.png" width="30%" alt="Output Images">
+</p>
+
+#### Sobel filter w/o Artifacts
+
+At the boundaries of the output images of sobel filter, we can see artifacts because we will obtain a gradient at the boundary.
+Hence, I also tested out a sobel filter that uses wrap boundaries (mirroring) to reduce artifacts at the boundaries of the image. The loss for the model with wrap boundaries is a little higher because the convolutional layers inherently use zero value paddings. This one works well for any number of layers >= 3.
+
+These are the images I got from the trained models. These are input images (left), target images after applying the sobel (with mirroring) filter (middle), and the output images from our model (right), respectively.
 
 <p align="center">
   <img src="media/sym_sobel/images_input.png" width="30%" alt="Input Images">
   <img src="media/sym_sobel/images_target.png" width="30%" alt="Target Images">
   <img src="media/sym_sobel/images_output.png" width="30%" alt="Output Images">
 </p>
-
-At the boundaries of the output images of sobel filter, we can see artifacts because we will obtain a gradient at the boundary.
-Hence, I also tested out a sobel filter that uses wrap boundaries (mirroring) to reduce artifacts at the boundaries of the image. The loss for the model with wrap boundaries is a little higher because the convolutional layers inherently use zero value paddings. This one works well for any number of layers >= 3.
 
 Neural networks (using CNNs) are learning various filters (other than Sobel and blur). So, we provide the feature to manually input a filter in the ```dataset.py``` file and add your filter there. You can then train your model following the training instructions.
