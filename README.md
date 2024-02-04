@@ -24,9 +24,9 @@ function train(input):
           // Step 5: Compute loss between output and GT
           // Step 6: Backprop and update weights
 
-    // Step 7: Run Steps 3-6 for validation dataset and log the loss
-    // Step 8: Save model if the validation loss is lower than that at previous epoch
-    // Step 9: Stop training if the decrease in validation loss falls below a certain percentages or epochs are complete
+      // Step 7: Run Steps 3-6 for validation dataset and log the loss
+      // Step 8: Save model if the validation loss is lower than that at previous epoch
+      // Step 9: Stop training if the decrease in validation loss falls below a certain percentages or epochs are complete
 
     return model
 ```
