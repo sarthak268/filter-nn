@@ -22,7 +22,10 @@ def test_model(image_name):
 
     model = SobelNet(num_layers=args["num_layers"])
     model = model.to(device)
-    weights_path = './saved_weights/model.pth'
+    
+    exp_name = args["filter"]
+    weights_path = './saved_weights/{}/'.format(exp_name)
+    weights_path = './{}/model.pth'.format(weights_path)
     model.load_state_dict(torch.load(weights_path))
     model.eval()
 
@@ -45,7 +48,7 @@ def test_model(image_name):
     output_image = Image.fromarray(output_np)
     output_image.save('./predicted_image.jpg')
 
-    gt_output = get_gt_values(input_image.cpu().squeeze(0))
+    gt_output = get_gt_values(input_image.cpu().squeeze(0), args["filter"])
     gt_output_np = gt_output.squeeze(0).squeeze(0).cpu().numpy()
 
     gt_output_np = ((gt_output_np - gt_output_np.min()) / (gt_output_np.max() - gt_output_np.min()) * 255).astype(np.uint8)
